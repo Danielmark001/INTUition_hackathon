@@ -1,0 +1,131 @@
+version: '3.8'
+
+services:
+  # Core Components
+  metamorphosis-engine:
+    build: ./metamorphosis-engine
+    ports:
+      - "8000:8000"
+    environment:
+      - APL_SERVICE_URL=http://plasticity-layer:8010
+      - PATTERN_INTELLIGENCE_URL=http://pattern-intelligence:8020
+      - OPTIMIZER_URL=http://optimizer:8030
+    volumes:
+      - ./shared-data:/app/data
+    networks:
+      - metamorphic-net
+
+  plasticity-layer:
+    build: ./plasticity-layer
+    ports:
+      - "8010:8010" 
+    environment:
+      - SERVICE_REGISTRY_URL=http://service-registry:8040
+    volumes:
+      - ./shared-data:/app/data
+    networks:
+      - metamorphic-net
+
+  pattern-intelligence:
+    build: ./pattern-intelligence
+    ports:
+      - "8020:8020"
+    environment:
+      - TELEMETRY_URL=http://telemetry:8050
+    volumes:
+      - ./shared-data:/app/data
+    networks:
+      - metamorphic-net
+
+  optimizer:
+    build: ./optimizer
+    ports:
+      - "8030:8030"
+    environment:
+      - ANALYZER_URL=http://architecture-analyzer:8060
+    volumes:
+      - ./shared-data:/app/data
+    networks:
+      - metamorphic-net
+
+  # Supporting Services
+  service-registry:
+    build: ./service-registry
+    ports:
+      - "8040:8040"
+    volumes:
+      - ./shared-data:/app/data
+    networks:
+      - metamorphic-net
+
+  telemetry:
+    build: ./telemetry
+    ports:
+      - "8050:8050"
+    volumes:
+      - ./shared-data:/app/data
+    networks:
+      - metamorphic-net
+
+  architecture-analyzer:
+    build: ./architecture-analyzer
+    ports:
+      - "8060:8060"
+    volumes:
+      - ./shared-data:/app/data
+    networks:
+      - metamorphic-net
+
+  # Example Microservices (will be dynamically reconfigured)
+  user-service:
+    build: ./microservices/user-service
+    ports:
+      - "9000:9000"
+    environment:
+      - APL_URL=http://plasticity-layer:8010
+      - TELEMETRY_URL=http://telemetry:8050
+    volumes:
+      - ./shared-data:/app/data
+    networks:
+      - metamorphic-net
+
+  order-service:
+    build: ./microservices/order-service
+    ports:
+      - "9010:9010"
+    environment:
+      - APL_URL=http://plasticity-layer:8010
+      - TELEMETRY_URL=http://telemetry:8050
+    volumes:
+      - ./shared-data:/app/data
+    networks:
+      - metamorphic-net
+
+  payment-service:
+    build: ./microservices/payment-service
+    ports:
+      - "9020:9020"
+    environment:
+      - APL_URL=http://plasticity-layer:8010
+      - TELEMETRY_URL=http://telemetry:8050
+    volumes:
+      - ./shared-data:/app/data
+    networks:
+      - metamorphic-net
+
+  # Dashboard for visualization
+  dashboard:
+    build: ./dashboard
+    ports:
+      - "3000:3000"
+    environment:
+      - API_GATEWAY_URL=http://metamorphosis-engine:8000
+    networks:
+      - metamorphic-net
+
+networks:
+  metamorphic-net:
+    driver: bridge
+
+volumes:
+  shared-data:

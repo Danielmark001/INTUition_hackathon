@@ -1,0 +1,296 @@
+/* App.css - Styles for the Metamorphic Architecture Dashboard */
+
+/* Global styles */
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #5a6acf;
+  --accent-color: #7868e6;
+  --success-color: #4ecca3;
+  --warning-color: #ffbb28;
+  --danger-color: #ff6b6b;
+  --dark-color: #2a3f5f;
+  --light-color: #f5f7fa;
+  --gray-color: #eeeeee;
+  --text-color: #333333;
+  --light-text: #ffffff;
+  
+  --sidebar-width: 240px;
+  --header-height: 60px;
+  --footer-height: 40px;
+  --transition-speed: 0.3s;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--light-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* App Container */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+.app-header {
+  height: var(--header-height);
+  background-color: var(--dark-color);
+  color: var(--light-text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-left h1 {
+  font-size: 1.5rem;
+  margin-left: 15px;
+}
+
+.sidebar-toggle {
+  background: none;
+  border: none;
+  color: var(--light-text);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.system-status {
+  display: flex;
+  align-items: center;
+}
+
+.status-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.status-indicator.healthy {
+  background-color: var(--success-color);
+}
+
+.status-indicator.degraded {
+  background-color: var(--warning-color);
+}
+
+.status-indicator.critical {
+  background-color: var(--danger-color);
+}
+
+/* Main Content Area */
+.app-content {
+  display: flex;
+  flex: 1;
+  margin-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+}
+
+/* Sidebar */
+.app-sidebar {
+  width: var(--sidebar-width);
+  background-color: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+  transition: transform var(--transition-speed);
+  position: fixed;
+  top: var(--header-height);
+  bottom: var(--footer-height);
+  overflow-y: auto;
+  z-index: 90;
+}
+
+.app-sidebar.closed {
+  transform: translateX(calc(-1 * var(--sidebar-width)));
+}
+
+.app-sidebar nav {
+  padding: 20px 0;
+}
+
+.app-sidebar ul {
+  list-style: none;
+}
+
+.app-sidebar li a {
+  display: block;
+  padding: 12px 20px;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+  font-weight: 500;
+}
+
+.app-sidebar li a:hover {
+  background-color: var(--gray-color);
+}
+
+.app-sidebar li a.active {
+  background-color: var(--primary-color);
+  color: var(--light-text);
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: var(--sidebar-width);
+  transition: margin-left var(--transition-speed);
+}
+
+.app-content .app-sidebar.closed + .main-content {
+  margin-left: 0;
+}
+
+/* Footer */
+.app-footer {
+  height: var(--footer-height);
+  background-color: var(--dark-color);
+  color: var(--light-text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+/* Common Components */
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.card-header {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--dark-color);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.full-width-card {
+  grid-column: 1 / -1;
+}
+
+/* Loading Spinner */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid var(--primary-color);
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Not Found Page */
+.not-found {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.not-found h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--dark-color);
+}
+
+.not-found p {
+  margin-bottom: 30px;
+  color: var(--text-color);
+}
+
+.button {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: var(--light-text);
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  :root {
+    --sidebar-width: 200px;
+  }
+  
+  .header-left h1 {
+    font-size: 1.2rem;
+  }
+  
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-sidebar {
+    width: 100%;
+  }
+  
+  .main-content {
+    margin-left: 0;
+  }
+  
+  .app-sidebar.open + .main-content {
+    display: none;
+  }
+}

@@ -1,0 +1,18 @@
+# Core dependencies
+fastapi==0.103.1
+uvicorn==0.23.2
+httpx==0.24.1
+pydantic==2.3.0
+python-dotenv==1.0.0
+
+# Dynamic service management
+docker==6.1.3
+kubernetes==28.1.0
+
+# Service communication
+aiohttp==3.8.5
+requests==2.31.0
+
+# Configuration management
+pyyaml==6.0.1
+jinja2==3.1.2

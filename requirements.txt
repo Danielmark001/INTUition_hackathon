@@ -1,0 +1,34 @@
+# ==================================================================
+# DEVELOPMENT & TOOLING (for project-wide development)
+# ==================================================================
+# Testing
+pytest==7.4.2
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+
+# Code quality & formatting
+black==23.9.1
+isort==5.12.0
+mypy==1.5.1
+flake8==6.1.0
+pylint==2.17.5
+
+# Documentation
+sphinx==7.2.6
+sphinx-rtd-theme==1.3.0
+
+# Local development 
+python-dotenv==1.0.0
+pre-commit==3.4.0
+docker-compose==1.29.2
+
+# Dependency management
+pip-tools==7.3.0
+
+# ==================================================================
+# PYTHON 3.12 COMPATIBILITY FIXES
+# ==================================================================
+# Pinned versions to address ImpImporter issue
+setuptools==65.5.0
+wheel==0.38.4
+pip==23.0.1
